@@ -1,0 +1,1430 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carian id-Delima SK Seksyen 24</title>
+    
+    <!-- Google Fonts: Mali font for friendly, soft school aesthetic -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #fdfbfb 0%, #fae8eb 50%, #e0f6ff 100%);
+            --card-bg: rgba(255, 255, 255, 0.92);
+            --text-main: #6b5b69;
+            --text-muted: #958a94;
+            --text-heading: #ff8fa3;
+            --primary-btn: #a0e8cf;
+            --primary-btn-hover: #8addbe;
+            --primary-btn-text: #2f4f4f;
+            --accent-pink: #ff6b8b;
+            --accent-pink-soft: #fff0f3;
+            --accent-gold: #ffc107;
+            --shadow-soft: 0 10px 30px rgba(255, 143, 163, 0.15);
+            --shadow-btn: 0 4px 15px rgba(160, 232, 207, 0.5);
+            --shadow-modal: 0 25px 60px rgba(110, 70, 80, 0.25);
+            --success-color: #38b000;
+            --error-color: #e63946;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Mali', cursive;
+            background: var(--bg-gradient);
+            background-attachment: fixed;
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 520px;
+            padding: 40px 20px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        /* School Logo */
+        .logo-img {
+            max-width: 170px;
+            height: 140px;
+            object-fit: contain;
+            margin: 0 auto 20px;
+            display: block; 
+            filter: drop-shadow(0 12px 20px rgba(255, 143, 163, 0.35)); 
+            transition: transform 0.3s ease;
+        }
+
+        .logo-img:hover {
+            transform: scale(1.05) rotate(2deg);
+        }
+
+        /* Typography */
+        h1 {
+            color: var(--text-heading);
+            font-size: 26px;
+            margin-bottom: 25px;
+            text-shadow: 2px 2px 0px rgba(255,255,255,0.8);
+            line-height: 1.3;
+        }
+
+        .subtitle {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-top: -15px;
+            margin-bottom: 25px;
+        }
+
+        /* Search Form */
+        .search-box {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .input-wrapper {
+            position: relative;
+            width: 100%;
+        }
+
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 16px 22px;
+            border-radius: 40px;
+            border: 2px solid white;
+            background: var(--card-bg);
+            font-family: 'Mali', cursive;
+            font-size: 15px;
+            color: var(--text-main);
+            box-shadow: var(--shadow-soft);
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]::placeholder, input[type="password"]::placeholder {
+            color: #b5aeb4;
+        }
+
+        input[type="text"]:focus, input[type="password"]:focus {
+            border-color: var(--text-heading);
+            background: white;
+            box-shadow: 0 8px 25px rgba(255, 143, 163, 0.25);
+        }
+
+        button {
+            font-family: 'Mali', cursive;
+            background: var(--primary-btn);
+            color: var(--primary-btn-text);
+            border: none;
+            padding: 15px 30px;
+            border-radius: 40px;
+            font-size: 17px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: var(--shadow-btn);
+            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), background 0.2s, opacity 0.2s;
+        }
+
+        button:hover:not(:disabled) {
+            background: var(--primary-btn-hover);
+            transform: translateY(-2px);
+        }
+
+        button:active:not(:disabled) {
+            transform: translateY(1px);
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Loading Indicator */
+        .loading {
+            display: none;
+            color: var(--text-heading);
+            font-weight: 600;
+            margin: 20px 0;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.4; transform: scale(0.98); }
+            50% { opacity: 1; transform: scale(1.02); }
+            100% { opacity: 0.4; transform: scale(0.98); }
+        }
+
+        /* Results List */
+        .results-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .result-card {
+            background: white;
+            padding: 16px 20px;
+            border-radius: 22px;
+            box-shadow: var(--shadow-soft);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+            font-weight: 600;
+            color: var(--text-main);
+            border: 2px solid transparent;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .result-card:hover {
+            transform: translateY(-3px) scale(1.01);
+            border-color: #ffdae0;
+            box-shadow: 0 12px 30px rgba(255, 143, 163, 0.22);
+        }
+
+        .result-name {
+            font-size: 15px;
+            font-weight: 700;
+            color: #554452;
+            line-height: 1.3;
+        }
+
+        .result-class-tag {
+            background: #fff0f3;
+            color: #e06d84;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+            text-align: center;
+        }
+
+        /* Modal (Pop-up) */
+        .modal-backdrop {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(45, 30, 40, 0.45);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            padding: 15px;
+        }
+
+        .modal-backdrop.show {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-card {
+            background: white;
+            width: 100%;
+            max-width: 430px;
+            border-radius: 35px;
+            padding: 32px 24px;
+            box-shadow: var(--shadow-modal);
+            text-align: center;
+            position: relative;
+            transform: scale(0.85);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            overflow: hidden;
+            max-height: 92vh;
+            overflow-y: auto;
+        }
+
+        .modal-backdrop.show .modal-card {
+            transform: scale(1);
+        }
+
+        /* Blushing Cheeks Concept */
+        .blush {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle, rgba(255, 166, 201, 0.35) 0%, rgba(255, 166, 201, 0) 70%);
+            border-radius: 50%;
+            bottom: 25px;
+            pointer-events: none;
+        }
+        .blush.left { left: -15px; }
+        .blush.right { right: -15px; }
+
+        .modal-name {
+            color: var(--text-heading);
+            font-size: 22px;
+            margin: 0 0 8px 0;
+            line-height: 1.25;
+            word-break: break-word;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #fff3b0;
+            color: #8c7e3f;
+            padding: 5px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 18px;
+        }
+
+        .detail-box {
+            background: #fdfafb;
+            border-radius: 20px;
+            padding: 18px;
+            margin-bottom: 15px;
+            text-align: center;
+            border: 2px dashed #ffdae0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .detail-label {
+            font-size: 11px;
+            color: #a39ca2;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+
+        .detail-value {
+            font-size: 15px;
+            font-weight: bold;
+            color: var(--text-main);
+            margin-bottom: 12px;
+            word-break: break-all;
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .detail-grid-item {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 8px;
+            border: 1px solid #ffedf1;
+        }
+
+        .detail-grid-item .detail-label {
+            margin-bottom: 2px;
+        }
+
+        .detail-grid-item .detail-value {
+            margin-bottom: 0;
+            font-size: 14px;
+        }
+
+        /* Password Section Inside Detail Modal */
+        .password-container {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 14px;
+            border: 1px solid #ffe3e8;
+            margin-top: 5px;
+            text-align: center;
+        }
+
+        .pwd-masked-display {
+            font-size: 20px;
+            letter-spacing: 4px;
+            color: #a39ca2;
+            font-weight: bold;
+            margin: 6px 0;
+            user-select: none;
+        }
+
+        .pwd-verify-trigger-btn {
+            background: linear-gradient(135deg, #ff8fa3 0%, #ff6b8b 100%);
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(255, 107, 139, 0.35);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 4px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .pwd-verify-trigger-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(255, 107, 139, 0.45);
+        }
+
+        .pwd-protected-hint {
+            font-size: 11.5px;
+            color: #b37d8e;
+            margin-top: 6px;
+        }
+
+        /* Revealed Password State */
+        .pwd-revealed-box {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            background: #f0faf5;
+            border: 1px solid #b7e8d2;
+            border-radius: 14px;
+            padding: 12px;
+            margin-top: 4px;
+        }
+
+        .pwd-revealed-value-wrap {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+        }
+
+        .pwd-revealed-text {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1b6343;
+            letter-spacing: 1px;
+            font-family: 'Courier New', Courier, monospace;
+            word-break: break-all;
+            user-select: all;
+        }
+
+        .pwd-revealed-actions {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin-top: 2px;
+        }
+
+        .pwd-action-btn {
+            background: #ffffff;
+            color: #2f4f4f;
+            border: 1px solid #a0e8cf;
+            padding: 6px 12px;
+            border-radius: 16px;
+            font-size: 12px;
+            font-weight: 600;
+            box-shadow: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .pwd-action-btn:hover {
+            background: #e8f8f2;
+            transform: none;
+        }
+
+        .pwd-timer-badge {
+            font-size: 11px;
+            color: #438f6b;
+            background: rgba(160, 232, 207, 0.3);
+            padding: 3px 10px;
+            border-radius: 10px;
+            margin-top: 2px;
+        }
+
+        .info-box {
+            background: #fff9e6;
+            border: 2px dashed #ffe082;
+            border-radius: 16px;
+            padding: 13px;
+            margin-bottom: 18px;
+            font-size: 12px;
+            line-height: 1.5;
+            color: #8c7e3f;
+            text-align: left;
+            position: relative;
+            z-index: 2;
+        }
+
+        .info-box span {
+            font-weight: bold;
+            color: #d68c1e;
+        }
+
+        .link-btn {
+            background: none;
+            border: none;
+            color: #38b000;
+            font-family: 'Mali', cursive;
+            font-size: 13.5px;
+            font-weight: 700;
+            text-decoration: underline;
+            cursor: pointer;
+            padding: 6px;
+            box-shadow: none;
+            margin-top: 6px;
+            position: relative;
+            z-index: 2;
+            display: inline-block;
+        }
+        
+        .link-btn:hover {
+            background: none;
+            color: #2b8a00;
+            transform: none;
+        }
+
+        /* Password Verification Modal (Pengesahan Identiti) */
+        .verify-box {
+            background: #fdfafb;
+            border-radius: 20px;
+            padding: 20px 16px;
+            margin: 15px 0;
+            border: 2px dashed #ffdae0;
+            text-align: center;
+        }
+
+        .verify-desc {
+            font-size: 13px;
+            color: #7a6b78;
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+
+        .verify-input-wrap {
+            position: relative;
+            margin-bottom: 14px;
+        }
+
+        .verify-input-wrap input {
+            text-align: center;
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .verify-action-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #a0e8cf 0%, #76d7b4 100%);
+            color: #194436;
+            font-size: 16px;
+            padding: 14px;
+        }
+
+        /* Forgot Password Form */
+        .forgot-form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            text-align: left;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .forgot-form label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: -6px;
+        }
+
+        .forgot-form input {
+            padding: 12px 18px;
+            border-radius: 18px;
+            border: 2px solid #ffdae0;
+            background: #fdfafb;
+            font-family: 'Mali', cursive;
+            font-size: 14px;
+            outline: none;
+        }
+        
+        .forgot-form input:focus {
+            border-color: var(--text-heading);
+            background: white;
+        }
+
+        .password-helper {
+            font-size: 11px;
+            color: #998a96;
+            margin-top: -6px;
+            margin-bottom: 4px;
+            line-height: 1.35;
+        }
+
+        .pwd-tool-btn {
+            background: #f0f3f8;
+            color: #536b85;
+            font-size: 12px;
+            padding: 6px 14px;
+            border-radius: 12px;
+            box-shadow: none;
+            align-self: flex-start;
+            font-weight: 600;
+            border: 1px solid #d5e0ea;
+            margin-top: -4px;
+            margin-bottom: 5px;
+            cursor: pointer;
+        }
+
+        .pwd-tool-btn:hover {
+            background: #e2eaf2;
+        }
+
+        /* Flying Envelope Animation */
+        .envelope-container {
+            display: none;
+            justify-content: center;
+            align-items: center;
+            height: 110px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .envelope {
+            position: relative;
+            width: 70px;
+            height: 46px;
+            background: var(--primary-btn);
+            border-radius: 6px;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .envelope::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 24px;
+            background: var(--primary-btn-hover);
+            clip-path: polygon(0 0, 50% 100%, 100% 0);
+            border-radius: 6px 6px 0 0;
+        }
+
+        .fly-away {
+            animation: flyAnimation 1.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        @keyframes flyAnimation {
+            0% { transform: translateY(0) scale(1) rotate(0deg); opacity: 1; }
+            20% { transform: translateY(-10px) scale(1.08) rotate(-6deg); opacity: 1; }
+            100% { transform: translateY(-160px) translateX(120px) scale(0.1) rotate(20deg); opacity: 0; }
+        }
+
+        .status-feedback {
+            display: none;
+            padding: 12px 15px;
+            border-radius: 16px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-top: 12px;
+            position: relative;
+            z-index: 2;
+            line-height: 1.4;
+            text-align: center;
+        }
+
+        .status-feedback.success {
+            background-color: #ebfaeb;
+            border: 1px solid #a8e6a8;
+            color: #2b7a2b;
+        }
+
+        .status-feedback.error {
+            background-color: #ffeef0;
+            border: 1px solid #ffccd5;
+            color: #c92a43;
+        }
+
+        .close-btn {
+            background: #ffd6df;
+            color: #9c5c69;
+            box-shadow: none;
+            width: 100%;
+            padding: 12px;
+            position: relative;
+            z-index: 2;
+            font-size: 15px;
+            margin-top: 8px;
+        }
+        
+        .close-btn:hover {
+            background: #ffc2ce;
+        }
+
+        .empty-state {
+            padding: 22px;
+            color: #a39ca2;
+            font-style: italic;
+            font-size: 14px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- School Logo -->
+        <img class="logo-img" src="https://i.postimg.cc/TYqt8R7F/sks24.png" alt="SK Seksyen 24 Logo">
+        
+        <h1>Carian id-Delima<br>Murid SK Seksyen 24</h1>
+        <div class="subtitle">Portal Semakan Akaun Pembelajaran Digital DELIMa KPM</div>
+        
+        <div class="search-box">
+            <div class="input-wrapper">
+                <input type="text" id="searchInput" placeholder="Masukkan Nama Murid, Kelas atau NO KP..." autocomplete="off">
+            </div>
+            <button id="searchBtn" onclick="performSearch()">Cari Akaun</button>
+        </div>
+
+        <div id="loadingIndicator" class="loading">Sedang mencari maklumat murid...</div>
+        
+        <div id="resultsContainer" class="results-container">
+            <!-- Results populated here -->
+        </div>
+    </div>
+
+    <!-- 1. Student Details Modal -->
+    <div id="detailModal" class="modal-backdrop" onclick="closeModal(event, false, 'detailModal')">
+        <div class="modal-card">
+            <div class="blush left"></div>
+            <div class="blush right"></div>
+
+            <h2 id="modalName" class="modal-name">Nama Murid</h2>
+            <div id="modalBadge" class="badge">3 DEDIKASI</div>
+            
+            <div class="detail-box">
+                <div class="detail-label">ID DELIMa Rasmi</div>
+                <div id="modalDelimaId" class="detail-value">m-12345678@moe-dl.edu.my</div>
+                
+                <div class="detail-grid">
+                    <div class="detail-grid-item">
+                        <div class="detail-label">Aliran</div>
+                        <div id="modalAliran" class="detail-value">PERDANA</div>
+                    </div>
+                    <div class="detail-grid-item">
+                        <div class="detail-label">Kelas</div>
+                        <div id="modalKelas" class="detail-value">3 DEDIKASI</div>
+                    </div>
+                </div>
+
+                <!-- Kata Laluan Dilindungi -->
+                <div class="password-container">
+                    <div class="detail-label" style="color: #ff6b8b;">Kata Laluan DELIMa</div>
+                    
+                    <!-- Keadaan 1: Terlindung (Awal) -->
+                    <div id="pwdProtectedView">
+                        <div class="pwd-masked-display">••••••••••</div>
+                        <button type="button" class="pwd-verify-trigger-btn" onclick="openVerifyModal()">
+                            <span>🔐</span> Lihat Kata Laluan
+                        </button>
+                        <div class="pwd-protected-hint">Kata Laluan Dilindungi • Klik untuk pengesahan NO KP</div>
+                    </div>
+
+                    <!-- Keadaan 2: Didedahkan Selepas Pengesahan MOEIS ID Berjaya -->
+                    <div id="pwdRevealedView" class="pwd-revealed-box">
+                        <div class="pwd-revealed-value-wrap">
+                            <span id="revealedPasswordText" class="pwd-revealed-text">••••••••••</span>
+                        </div>
+                        <div class="pwd-revealed-actions">
+                            <button type="button" id="copyPwdBtn" class="pwd-action-btn" onclick="copyPasswordToClipboard()">📋 Salin</button>
+                            <button type="button" id="togglePwdBtn" class="pwd-action-btn" onclick="togglePasswordVisibility()">👁 Sembunyikan</button>
+                        </div>
+                        <div id="autoHideNotice" class="pwd-timer-badge">
+                            Disembunyikan secara automatik dalam <span id="autoHideCountdown">45</span>s
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Maklumat Format Kata Laluan Asal -->
+            <div class="info-box">
+                <strong>Format Kata Laluan Asal Murid Baharu:</strong><br>
+                <span>5 digit terakhir No. KP</span> + <span>@</span> + <span>kod sekolah</span>.<br>
+                <em>Contoh: 12345@BBA8105</em><br>
+                <em>(Sesuai untuk murid yang belum pernah menukar kata laluan)</em>
+            </div>
+            
+            <button class="close-btn" onclick="closeModal(event, true, 'detailModal')">Tutup</button>
+            <button class="link-btn" onclick="openForgotModalFromCard()">Lupa Kata Laluan / Perlu Bantuan?</button>
+        </div>
+    </div>
+
+    <!-- 2. Password Verification Modal (Pengesahan Identiti NO KP) -->
+    <div id="verifyMoeisModal" class="modal-backdrop" onclick="closeModal(event, false, 'verifyMoeisModal')">
+        <div class="modal-card" style="max-width: 390px;">
+            <div class="blush left"></div>
+            <div class="blush right"></div>
+
+            <h2 class="modal-name" style="font-size: 20px; margin-bottom: 6px;">Pengesahan Identiti</h2>
+            
+            <div class="verify-box">
+                <div class="verify-desc">
+                    Untuk melindungi akaun murid, sila masukkan <strong>NO KP</strong> murid untuk melihat kata laluan DELIMa.
+                </div>
+
+                <div class="verify-input-wrap">
+                    <input type="text" id="moeisInput" placeholder="Masukkan NO KP" autocomplete="off" autocorrect="off" autocapitalize="characters" spellcheck="false">
+                </div>
+
+                <button id="submitVerifyBtn" class="verify-action-btn" onclick="submitMoeisVerification()">
+                    Sahkan &amp; Lihat Kata Laluan
+                </button>
+                
+                <div id="verifyFeedback" class="status-feedback"></div>
+            </div>
+
+            <button class="close-btn" onclick="closeModal(event, true, 'verifyMoeisModal')">Batal / Tutup</button>
+        </div>
+    </div>
+
+    <!-- 3. Forgot Password Modal (Permohonan Reset Kata Laluan) -->
+    <div id="forgotPasswordModal" class="modal-backdrop" onclick="closeModal(event, false, 'forgotPasswordModal')">
+        <div class="modal-card">
+            <div class="blush left"></div>
+            <div class="blush right"></div>
+
+            <h2 class="modal-name" style="font-size: 20px; margin-bottom: 18px;">Permohonan Reset Kata Laluan</h2>
+            
+            <!-- Honeypot Field (Perangkap Bot) -->
+            <input type="text" id="hpCheck" name="_hp_security_check" style="display:none !important; position: absolute; left: -9999px;" tabindex="-1" autocomplete="off">
+
+            <div id="forgotFormContainer" class="forgot-form">
+                <label for="forgotName">Nama Penuh Murid <span style="color:#ff8fa3;">*</span></label>
+                <input type="text" id="forgotName" placeholder="Contoh: Ahmad Ali bin Abu">
+                
+                <label for="forgotClass">Kelas <span style="color:#ff8fa3;">*</span></label>
+                <input type="text" id="forgotClass" placeholder="Contoh: 3 DEDIKASI">
+
+                <label for="forgotEmail">ID DELIMa (Jika tahu)</label>
+                <input type="text" id="forgotEmail" placeholder="Cth: m-12345678@moe-dl.edu.my">
+                
+                <label for="forgotNewPassword">Cadangan Kata Laluan Baharu (Pilihan)</label>
+                <input type="text" id="forgotNewPassword" placeholder="Contoh: Bunga@2026">
+                <button type="button" class="pwd-tool-btn" onclick="generateRandomPassword()">+ Jana Password Rawak</button>
+                
+                <div class="password-helper">
+                    Sertakan huruf besar, kecil, nombor dan simbol (@, #, $). Jika dibiarkan kosong, admin akan menetapkan kata laluan sementara untuk anda.
+                </div>
+                
+                <button id="submitResetBtn" onclick="submitForgotPassword()" style="margin-top: 8px;">Hantar Permohonan ke Admin</button>
+            </div>
+
+            <div id="envelopeAnim" class="envelope-container">
+                <div id="envelope" class="envelope"></div>
+            </div>
+            
+            <div id="forgotFeedback" class="status-feedback"></div>
+
+            <button class="close-btn" style="margin-top: 15px;" onclick="closeModal(event, true, 'forgotPasswordModal')">Batal / Tutup</button>
+        </div>
+    </div>
+
+    <script>
+        // Check if running in Google Apps Script environment or preview
+        const isGasEnv = typeof google !== 'undefined' && google.script && google.script.run;
+
+        // Active state variables
+        let currentSelectedStudent = null; // Contains only public fields { name, delimaId, aliran, kelas }
+        let currentRevealedPassword = '';   // Cleared immediately on modal close / student change / tab blur
+        let autoHideTimeout = null;
+        let countdownInterval = null;
+        let isPasswordMaskedInReveal = false;
+        let forgotFormOpenTimestamp = 0;
+
+        // Generate or retrieve unique client session token for anti-abuse rate limits
+        function getClientToken() {
+            let token = sessionStorage.getItem('delima_client_token');
+            if (!token) {
+                token = 'sks24_' + Math.random().toString(36).substring(2, 12) + '_' + Date.now();
+                sessionStorage.setItem('delima_client_token', token);
+            }
+            return token;
+        }
+
+        // Auto-conceal sensitive credentials if user leaves tab or window loses focus (Defense-in-depth)
+        document.addEventListener('visibilitychange', function () {
+            if (document.hidden && currentRevealedPassword) {
+                hidePasswordAndReset();
+            }
+        });
+
+        window.addEventListener('blur', function () {
+            if (currentRevealedPassword) {
+                hidePasswordAndReset();
+            }
+        });
+
+        /* ----------------------------------------------------
+           1. CARIAN DATA MURID (SEARCH)
+        ---------------------------------------------------- */
+        function performSearch() {
+            const searchInput = document.getElementById('searchInput');
+            const searchBtn = document.getElementById('searchBtn');
+            const query = searchInput.value.trim();
+            const resultsContainer = document.getElementById('resultsContainer');
+            const loading = document.getElementById('loadingIndicator');
+
+            // Clear any active revealed passwords
+            hidePasswordAndReset();
+
+            if (!query) {
+                resultsContainer.innerHTML = '';
+                const emptyPrompt = document.createElement('div');
+                emptyPrompt.className = 'empty-state';
+                emptyPrompt.textContent = 'Sila masukkan nama, kelas atau NO KP untuk carian.';
+                resultsContainer.appendChild(emptyPrompt);
+                return;
+            }
+
+            if (query.length < 3) {
+                resultsContainer.innerHTML = '';
+                const shortPrompt = document.createElement('div');
+                shortPrompt.className = 'empty-state';
+                shortPrompt.style.color = '#ff8fa3';
+                shortPrompt.textContent = 'Sila masukkan sekurang-kurangnya 3 aksara.';
+                resultsContainer.appendChild(shortPrompt);
+                return;
+            }
+
+            // Clear previous results and show loading
+            resultsContainer.innerHTML = '';
+            loading.style.display = 'block';
+            searchBtn.disabled = true;
+
+            if (isGasEnv) {
+                google.script.run
+                    .withSuccessHandler(function(response) {
+                        searchBtn.disabled = false;
+                        displayResults(response);
+                    })
+                    .withFailureHandler(function(error) {
+                        searchBtn.disabled = false;
+                        handleError(error);
+                    })
+                    .searchData(query, getClientToken());
+            } else {
+                // Mock database for local browser testing & previewing
+                setTimeout(() => {
+                    searchBtn.disabled = false;
+                    const mockDatabase = [
+                        { name: "AHMAD BIN ALI", delimaId: "m-12345678@moe-dl.edu.my", aliran: "PERDANA", kelas: "3 DEDIKASI", moeisId: "M12345" },
+                        { name: "SITI NURAISYAH BINTI ZULKIFLI", delimaId: "m-23456789@moe-dl.edu.my", aliran: "PERDANA", kelas: "1 MAWAR", moeisId: "M23456" },
+                        { name: "WONG WEI JIE", delimaId: "m-34567890@moe-dl.edu.my", aliran: "PERDANA", kelas: "4 CEMERLANG", moeisId: "M34567" },
+                        { name: "MUHAMMAD DANIEL HAKIM", delimaId: "m-45678901@moe-dl.edu.my", aliran: "PPKI", kelas: "PPKI AMANAH", moeisId: "M45678" }
+                    ];
+                    
+                    const lowerQuery = query.toLowerCase();
+                    const searchTerms = lowerQuery.split(' ').filter(t => t.length > 0);
+                    
+                    const filtered = mockDatabase.filter(s => {
+                        const cleanStoredMoeis = (s.moeisId || '').replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
+                        const publicText = `${s.name} ${s.aliran} ${s.kelas} ${s.delimaId || ''}`.toLowerCase();
+                        return searchTerms.every(term => {
+                            const cleanTerm = term.replace(/[^a-z0-9]/g, '');
+                            const publicMatched = publicText.includes(term);
+                            const exactMoeisMatched = (cleanStoredMoeis.length >= 4 && cleanTerm.length >= 4 && cleanStoredMoeis === cleanTerm);
+                            return publicMatched || exactMoeisMatched;
+                        });
+                    }).map(s => ({
+                        name: s.name,
+                        delimaId: s.delimaId,
+                        aliran: s.aliran,
+                        kelas: s.kelas
+                    }));
+                    
+                    const limitReached = filtered.length > 20;
+                    displayResults({ 
+                        success: true, 
+                        data: filtered.slice(0, 20), 
+                        limitReached: limitReached 
+                    });
+                }, 400); 
+            }
+        }
+
+        function displayResults(response) {
+            const resultsContainer = document.getElementById('resultsContainer');
+            const loading = document.getElementById('loadingIndicator');
+            
+            loading.style.display = 'none';
+            resultsContainer.innerHTML = '';
+
+            if (!response || response.success === false) {
+                 const errText = (response && response.error) ? response.error : 'Ralat semasa memproses carian.';
+                 const errDiv = document.createElement('div');
+                 errDiv.className = 'empty-state';
+                 errDiv.style.color = '#ff8fa3';
+                 errDiv.textContent = errText;
+                 resultsContainer.appendChild(errDiv);
+                 return;
+            }
+
+            const data = response.data || [];
+
+            if (data.length === 0) {
+                const emptyDiv = document.createElement('div');
+                emptyDiv.className = 'empty-state';
+                emptyDiv.textContent = 'Tiada padanan dijumpai. Sila semak ejaan nama, kelas atau NO KP murid.';
+                resultsContainer.appendChild(emptyDiv);
+                return;
+            }
+
+            data.forEach(student => {
+                const card = document.createElement('div');
+                card.className = 'result-card';
+                
+                const nameSpan = document.createElement('span');
+                nameSpan.className = 'result-name';
+                nameSpan.textContent = student.name;
+
+                const classSpan = document.createElement('span');
+                classSpan.className = 'result-class-tag';
+                classSpan.textContent = student.kelas || student.aliran || 'Murid';
+
+                card.appendChild(nameSpan);
+                card.appendChild(classSpan);
+                
+                card.onclick = () => openStudentModal(student);
+                resultsContainer.appendChild(card);
+            });
+
+            if (response.limitReached) {
+                const limitMsg = document.createElement('div');
+                limitMsg.className = 'empty-state';
+                limitMsg.style.fontSize = '13px';
+                limitMsg.style.marginTop = '10px';
+                limitMsg.textContent = 'Terdapat banyak padanan. Sila masukkan nama penuh atau kelas untuk carian lebih tepat.';
+                resultsContainer.appendChild(limitMsg);
+            }
+        }
+
+        function handleError(error) {
+            document.getElementById('loadingIndicator').style.display = 'none';
+            const resultsContainer = document.getElementById('resultsContainer');
+            resultsContainer.innerHTML = '';
+            const errDiv = document.createElement('div');
+            errDiv.className = 'empty-state';
+            errDiv.style.color = '#ff8fa3';
+            errDiv.textContent = 'Ralat sistem. Sila muat semula laman dan cuba lagi.';
+            resultsContainer.appendChild(errDiv);
+        }
+
+        /* ----------------------------------------------------
+           2. MODAL MAKLUMAT MURID (STUDENT DETAILS)
+        ---------------------------------------------------- */
+        function openStudentModal(student) {
+            // Set current context (never stores MOEIS ID or Password)
+            currentSelectedStudent = student;
+            hidePasswordAndReset();
+
+            document.getElementById('modalName').textContent = student.name || 'Nama Murid';
+            document.getElementById('modalBadge').textContent = (student.aliran ? student.aliran + ' • ' : '') + (student.kelas || '');
+            document.getElementById('modalDelimaId').textContent = student.delimaId || 'Tidak dinyatakan';
+            document.getElementById('modalAliran').textContent = student.aliran || '-';
+            document.getElementById('modalKelas').textContent = student.kelas || '-';
+
+            const modal = document.getElementById('detailModal');
+            modal.style.display = 'flex';
+            setTimeout(() => modal.classList.add('show'), 10); 
+        }
+
+        /* ----------------------------------------------------
+           3. MODAL PENGESAHAN IDENTITI MOEIS ID
+        ---------------------------------------------------- */
+        function openVerifyModal() {
+            if (!currentSelectedStudent || !currentSelectedStudent.delimaId) {
+                alert('Sila buat carian dan pilih murid terlebih dahulu.');
+                return;
+            }
+
+            const moeisInput = document.getElementById('moeisInput');
+            const feedback = document.getElementById('verifyFeedback');
+            const submitBtn = document.getElementById('submitVerifyBtn');
+
+            moeisInput.value = '';
+            feedback.style.display = 'none';
+            feedback.className = 'status-feedback';
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Sahkan & Lihat Kata Laluan';
+
+            const modal = document.getElementById('verifyMoeisModal');
+            modal.style.display = 'flex';
+            setTimeout(() => {
+                modal.classList.add('show');
+                moeisInput.focus();
+            }, 10);
+        }
+
+        function submitMoeisVerification() {
+            const moeisInput = document.getElementById('moeisInput');
+            const submittedMoeis = moeisInput.value.trim();
+            const submitBtn = document.getElementById('submitVerifyBtn');
+            const feedback = document.getElementById('verifyFeedback');
+
+            if (!submittedMoeis) {
+                feedback.className = 'status-feedback error';
+                feedback.textContent = 'Sila masukkan NO KP murid.';
+                feedback.style.display = 'block';
+                moeisInput.focus();
+                return;
+            }
+
+            // Disable button & show loading state
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sedang mengesahkan...';
+            feedback.style.display = 'none';
+
+            if (isGasEnv) {
+                google.script.run
+                    .withSuccessHandler(function(response) {
+                        handleVerifyResponse(response);
+                    })
+                    .withFailureHandler(function(error) {
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = 'Sahkan & Lihat Kata Laluan';
+                        feedback.className = 'status-feedback error';
+                        feedback.textContent = 'Ralat semasa pengesahan. Sila cuba lagi.';
+                        feedback.style.display = 'block';
+                    })
+                    .verifyMoeisAndGetPassword(
+                        currentSelectedStudent.delimaId, 
+                        submittedMoeis, 
+                        getClientToken()
+                    );
+            } else {
+                // Mock test in local browser
+                setTimeout(() => {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Sahkan & Lihat Kata Laluan';
+
+                    // Mock matching logic: sample demo MOEIS ID is 'M12345'
+                    if (submittedMoeis.toUpperCase() === 'M12345' || submittedMoeis.toUpperCase() === '12345') {
+                        handleVerifyResponse({
+                            success: true,
+                            verified: true,
+                            password: "Pass@" + Math.floor(1000 + Math.random() * 9000)
+                        });
+                    } else {
+                        handleVerifyResponse({
+                            success: false,
+                            verified: false,
+                            error: "NO KP tidak sepadan. Sila semak dan cuba lagi."
+                        });
+                    }
+                }, 600);
+            }
+        }
+
+        function handleVerifyResponse(response) {
+            const submitBtn = document.getElementById('submitVerifyBtn');
+            const feedback = document.getElementById('verifyFeedback');
+
+            if (response && response.success && response.verified && response.password) {
+                // Pengesahan berjaya: tutup modal pengesahan & paparkan kata laluan
+                closeModal(null, true, 'verifyMoeisModal');
+                revealPasswordInDetailModal(response.password);
+            } else {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Sahkan & Lihat Kata Laluan';
+                const errMsg = (response && response.error) 
+                    ? response.error 
+                    : "NO KP tidak sepadan. Sila semak dan cuba lagi.";
+                feedback.className = 'status-feedback error';
+                feedback.textContent = errMsg;
+                feedback.style.display = 'block';
+            }
+        }
+
+        /* ----------------------------------------------------
+           4. PAPARAN KATA LALUAN SELEPAS PENGESAHAN (REVEAL UX)
+        ---------------------------------------------------- */
+        function revealPasswordInDetailModal(plainPassword) {
+            currentRevealedPassword = plainPassword;
+            isPasswordMaskedInReveal = false;
+
+            const protectedView = document.getElementById('pwdProtectedView');
+            const revealedView = document.getElementById('pwdRevealedView');
+            const pwdText = document.getElementById('revealedPasswordText');
+            const toggleBtn = document.getElementById('togglePwdBtn');
+            const copyBtn = document.getElementById('copyPwdBtn');
+
+            protectedView.style.display = 'none';
+            revealedView.style.display = 'flex';
+            pwdText.textContent = plainPassword;
+            toggleBtn.textContent = '👁 Sembunyikan';
+            copyBtn.textContent = '📋 Salin';
+
+            // Start 45-second auto-hide countdown
+            startAutoHideCountdown(45);
+        }
+
+        function togglePasswordVisibility() {
+            if (!currentRevealedPassword) return;
+
+            const pwdText = document.getElementById('revealedPasswordText');
+            const toggleBtn = document.getElementById('togglePwdBtn');
+
+            if (isPasswordMaskedInReveal) {
+                pwdText.textContent = currentRevealedPassword;
+                toggleBtn.textContent = '👁 Sembunyikan';
+                isPasswordMaskedInReveal = false;
+            } else {
+                pwdText.textContent = '••••••••••';
+                toggleBtn.textContent = '👁️ Tunjukkan';
+                isPasswordMaskedInReveal = true;
+            }
+        }
+
+        function copyPasswordToClipboard() {
+            if (!currentRevealedPassword) return;
+            const copyBtn = document.getElementById('copyPwdBtn');
+            
+            navigator.clipboard.writeText(currentRevealedPassword).then(() => {
+                copyBtn.textContent = '✓ Disalin!';
+                setTimeout(() => {
+                    copyBtn.textContent = '📋 Salin';
+                }, 2000);
+            }).catch(() => {
+                copyBtn.textContent = '✓ Disalin';
+                setTimeout(() => {
+                    copyBtn.textContent = '📋 Salin';
+                }, 2000);
+            });
+        }
+
+        function startAutoHideCountdown(seconds) {
+            clearTimers();
+            let remaining = seconds;
+            const countdownEl = document.getElementById('autoHideCountdown');
+            if (countdownEl) countdownEl.textContent = remaining;
+
+            countdownInterval = setInterval(() => {
+                remaining--;
+                if (countdownEl) countdownEl.textContent = remaining;
+                if (remaining <= 0) {
+                    clearTimers();
+                    hidePasswordAndReset();
+                }
+            }, 1000);
+        }
+
+        function clearTimers() {
+            if (countdownInterval) {
+                clearInterval(countdownInterval);
+                countdownInterval = null;
+            }
+            if (autoHideTimeout) {
+                clearTimeout(autoHideTimeout);
+                autoHideTimeout = null;
+            }
+        }
+
+        function hidePasswordAndReset() {
+            clearTimers();
+            currentRevealedPassword = '';
+            isPasswordMaskedInReveal = false;
+
+            const protectedView = document.getElementById('pwdProtectedView');
+            const revealedView = document.getElementById('pwdRevealedView');
+            const pwdText = document.getElementById('revealedPasswordText');
+
+            if (protectedView) protectedView.style.display = 'block';
+            if (revealedView) revealedView.style.display = 'none';
+            if (pwdText) pwdText.textContent = '••••••••••';
+        }
+
+        /* ----------------------------------------------------
+           5. MODAL PERMOHONAN RESET KATA LALUAN (FORGOT PASSWORD)
+        ---------------------------------------------------- */
+        function openForgotModalFromCard() {
+            closeModal(null, true, 'detailModal');
+            openForgotModal(currentSelectedStudent);
+        }
+
+        function openForgotModal(prefillStudent) {
+            resetForgotModal();
+            forgotFormOpenTimestamp = Date.now();
+            
+            if (prefillStudent) {
+                document.getElementById('forgotName').value = prefillStudent.name || '';
+                document.getElementById('forgotClass').value = prefillStudent.kelas || prefillStudent.aliran || '';
+                document.getElementById('forgotEmail').value = prefillStudent.delimaId || '';
+            }
+
+            const modal = document.getElementById('forgotPasswordModal');
+            modal.style.display = 'flex';
+            setTimeout(() => modal.classList.add('show'), 10);
+        }
+
+        function resetForgotModal() {
+            document.getElementById('forgotFormContainer').style.display = 'flex';
+            document.getElementById('envelopeAnim').style.display = 'none';
+            document.getElementById('forgotFeedback').style.display = 'none';
+            document.getElementById('forgotFeedback').className = 'status-feedback';
+            document.getElementById('envelope').classList.remove('fly-away');
+            document.getElementById('submitResetBtn').disabled = false;
+            document.getElementById('hpCheck').value = '';
+            document.getElementById('forgotEmail').value = '';
+            document.getElementById('forgotName').value = '';
+            document.getElementById('forgotClass').value = '';
+            document.getElementById('forgotNewPassword').value = '';
+        }
+
+        function generateRandomPassword() {
+            const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ";
+            const specials = "@#$!";
+            const nums = "23456789";
+            
+            let pass = "";
+            for (let i = 0; i < 4; i++) pass += chars.charAt(Math.floor(Math.random() * chars.length));
+            pass += specials.charAt(Math.floor(Math.random() * specials.length));
+            for (let i = 0; i < 4; i++) pass += nums.charAt(Math.floor(Math.random() * nums.length));
+            
+            document.getElementById('forgotNewPassword').value = pass;
+        }
+
+        function submitForgotPassword() {
+            const name = document.getElementById('forgotName').value.trim();
+            const kelas = document.getElementById('forgotClass').value.trim();
+            const email = document.getElementById('forgotEmail').value.trim();
+            const newPassword = document.getElementById('forgotNewPassword').value.trim();
+            const hpField = document.getElementById('hpCheck').value;
+            const submitBtn = document.getElementById('submitResetBtn');
+            const feedbackEl = document.getElementById('forgotFeedback');
+
+            if (!name || !kelas) {
+                alert('Sila masukkan Nama Penuh dan Kelas murid terlebih dahulu.');
+                return;
+            }
+
+            // Disable submit button & start flying animation
+            submitBtn.disabled = true;
+            document.getElementById('forgotFormContainer').style.display = 'none';
+            document.getElementById('envelopeAnim').style.display = 'flex';
+            
+            const envelope = document.getElementById('envelope');
+            void envelope.offsetWidth;
+            envelope.classList.add('fly-away');
+
+            const payload = {
+                studentName: name,
+                studentClass: kelas,
+                studentEmail: email,
+                newPassword: newPassword,
+                clientToken: getClientToken(),
+                hpField: hpField,
+                submitTime: forgotFormOpenTimestamp
+            };
+
+            if (isGasEnv) {
+                google.script.run
+                    .withSuccessHandler(function(response) {
+                        setTimeout(() => {
+                            document.getElementById('envelopeAnim').style.display = 'none';
+                            
+                            if (response && response.success) {
+                                feedbackEl.className = 'status-feedback success';
+                                feedbackEl.textContent = response.message || "Permohonan anda telah berjaya dihantar kepada admin sekolah!";
+                                feedbackEl.style.display = 'block';
+                            } else {
+                                const errMsg = (response && response.error) ? response.error : "Gagal menghantar permohonan. Sila cuba sebentar lagi.";
+                                feedbackEl.className = 'status-feedback error';
+                                feedbackEl.textContent = errMsg;
+                                feedbackEl.style.display = 'block';
+                                document.getElementById('forgotFormContainer').style.display = 'flex';
+                                submitBtn.disabled = false;
+                            }
+                        }, 1200); 
+                    })
+                    .withFailureHandler(function(err) {
+                        setTimeout(() => {
+                            document.getElementById('envelopeAnim').style.display = 'none';
+                            feedbackEl.className = 'status-feedback error';
+                            feedbackEl.textContent = "Ralat pelayan: Gagal menghantar permohonan. Sila hubungi guru penyelaras.";
+                            feedbackEl.style.display = 'block';
+                            document.getElementById('forgotFormContainer').style.display = 'flex';
+                            submitBtn.disabled = false;
+                        }, 1200);
+                    })
+                    .sendPasswordResetEmail(payload);
+            } else {
+                // Mock test in local browser
+                setTimeout(() => {
+                    document.getElementById('envelopeAnim').style.display = 'none';
+                    feedbackEl.className = 'status-feedback success';
+                    feedbackEl.textContent = "Permohonan anda telah berjaya direkodkan! (Mod Ujian Penyemak Imbas)";
+                    feedbackEl.style.display = 'block';
+                }, 1200); 
+            }
+        }
+
+        /* ----------------------------------------------------
+           6. MODAL UTILITY FUNCTIONS
+        ---------------------------------------------------- */
+        function closeModal(event, forceClose = false, modalId = 'detailModal') {
+            const modal = document.getElementById(modalId);
+            if (!modal) return;
+            
+            if (forceClose || event.target === modal) {
+                modal.classList.remove('show');
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                    if (modalId === 'detailModal') {
+                        hidePasswordAndReset();
+                    } else if (modalId === 'verifyMoeisModal') {
+                        document.getElementById('moeisInput').value = '';
+                        document.getElementById('verifyFeedback').style.display = 'none';
+                    } else if (modalId === 'forgotPasswordModal') {
+                        resetForgotModal();
+                    }
+                }, 300);
+            }
+        }
+
+        function escapeHtml(text) {
+            if (!text) return '';
+            const map = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#039;'
+            };
+            return String(text).replace(/[&<>"']/g, function(m) { return map[m]; });
+        }
+        
+        // Listeners for Enter key
+        document.getElementById('searchInput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+
+        document.getElementById('moeisInput').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                submitMoeisVerification();
+            }
+        });
+    </script>
+</body>
+</html>
